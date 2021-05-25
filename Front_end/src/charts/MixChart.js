@@ -1,22 +1,24 @@
-import Doughnut from "./Doughnut";
+import BarChartCity from "./BarChartCity";
 import BarChart from "./BarChart";
 
-const MixChart = ({ type, label, value }) => {
-  if (type === "bar") {
-    return <BarChart label={label} value={value} />;
+const MixChart = ({ type, type2, cityData, data, data2 }) => {
+  if (type === "data") {
+    if (type2 === 0)
+      return (
+        <BarChart
+          data={data}
+          text={"Average food name mentioned per 10000 tweets in each city"}
+        />
+      );
+    else
+      return (
+        <BarChart data={data2} text={"Average food polarity in each city"} />
+      );
   } else {
     return (
-      <Doughnut
-        label={label}
-        value={value}
-        colors={[
-          "#a8e0ff",
-          "#8ee3f5",
-          "#70cad1",
-          "#3e517a",
-          "#b08ea2",
-          "#BBB6DF",
-        ]}
+      <BarChartCity
+        label={Object.keys(cityData)}
+        value={Object.values(cityData)}
       />
     );
   }

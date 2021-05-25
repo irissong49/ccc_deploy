@@ -1,7 +1,7 @@
 import React from "react";
 import { Chart } from "react-chartjs-2";
 
-class BarChart extends React.Component {
+class Line1 extends React.Component {
   constructor(props) {
     super(props);
     this.chartRef = React.createRef();
@@ -13,22 +13,46 @@ class BarChart extends React.Component {
       this.myChart.data.datasets[i].label = city.label;
       this.myChart.data.datasets[i].data = city.data;
       this.myChart.data.datasets[i].backgroundColor = city.backgroundColor;
+      this.myChart.data.datasets[i].borderColor = city.borderColor;
+      this.myChart.data.datasets[i].borderDash = city.borderDash;
+      this.myChart.data.datasets[i].hidden = city.hidden;
+      this.myChart.data.datasets[i].yAxisID = city.yAxisID;
     }
-    this.myChart.options.plugins.title.text = this.props.text;
     this.myChart.update();
   }
 
   componentDidMount() {
     this.myChart = new Chart(this.chartRef.current, {
-      type: "bar",
+      type: "line",
       data: this.props.data,
       options: {
         maintainAspectRatio: false,
         responsive: true,
+        elements: {
+          point: {
+            radius: 0,
+          },
+        },
+        scales: {
+          A: {
+            type: "linear",
+            position: "left",
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+            },
+          },
+          B: {
+            type: "linear",
+            position: "right",
+            grid: {
+              display: false,
+            },
+          },
+        },
         plugins: {
           title: {
             display: true,
-            text: this.props.text,
+            text: "Statistics for each city since 01/01/2020",
             fontSize: 20,
           },
           legend: {
@@ -45,4 +69,4 @@ class BarChart extends React.Component {
   }
 }
 
-export default BarChart;
+export default Line1;
